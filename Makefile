@@ -1,4 +1,4 @@
-all: build_all link_all run
+all: build_all link_all run build_graphs
 
 build_all:
 	g++ -c test_LIRS.cpp tests.cpp
@@ -8,3 +8,6 @@ link_all:
 
 run:
 	./main
+
+build_graphs:
+	gnuplot graphs.p
