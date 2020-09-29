@@ -213,19 +213,3 @@ namespace LIRS {
 	#undef NR_HIR
 
 }
-
-template <typename Key, typename ListIt>
-std::ostream& operator<<(std::ostream& os, std::unordered_map<Key, ListIt> l) {
-	for (auto it = l.begin(); it != l.end(); ++it) {
-		os << *(it->second->cache_it_) << ' ';
-	}
-	return os;
-}
-
-template <typename Data>
-std::ostream& operator<<(std::ostream& os, std::list<Data> l) {
-	for (auto it = l.begin(); it != l.end(); ++it) {
-		os << *it << ' ';
-	}
-	return os;
-}
