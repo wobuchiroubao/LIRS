@@ -4,7 +4,6 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
-#include <iostream>
 
 namespace Beladys {
 
@@ -85,19 +84,4 @@ namespace Beladys {
 		return search_map.begin()->first;
 	}
 
-}
-
-template <typename A, typename B>
-std::ostream& operator<<(std::ostream& os, std::vector<std::pair<A, B>> l) {
-	for (auto it = l.begin(); it != l.end(); ++it) {
-		os << it->second << ' ';
-	}
-	return os;
-}
-
-std::ostream& operator<<(std::ostream& os, std::vector<int> l) {
-	for (auto it = l.begin(); it != l.end(); ++it) {
-		os << *it << ' ';
-	}
-	return os;
 }
