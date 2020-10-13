@@ -20,7 +20,7 @@ namespace Beladys {
 	private:
 		typedef typename std::vector<std::pair<Key, Data>> DataVect;
 		typedef typename std::vector<std::pair<Key, Data>>::const_iterator \
-										 DataVectConstIt;
+				 DataVectConstIt;
 		typedef typename std::list<Data>::iterator ListIt;
 
 		void missNotFullCache(DataVectConstIt elem);
