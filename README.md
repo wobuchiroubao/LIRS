@@ -11,6 +11,6 @@ input:
 10  
 1 2 3 4 5 3 6 6 2 3  
 output (for make cache=Beladys):  
-4
+4  
 output (for make cache=LIRS):  
 3
