@@ -1,5 +1,16 @@
 # LIRS
-To accemble project use "make" in terminal.
+To accemble project with Belady's cache use "make cache=Beladys" in terminal;  
+To accemble with LIRS cache use "make cache=LIRS".
 
-main's output is two txt-files: burst_read.txt and loop_read.txt - 1st column represents cache's size, 2nd - number of hits for Belady's algorithm, 3rd - hits for LIRS algorithm.
-After, graphs.p is launched and graphs are built in burst_read.eps and loop_read.eps.
+input: cache_size, entry_trace_size, entries themselves (entry_trace_size numbers of int type)  
+output: one number (representing number of hits)
+
+example:  
+input:  
+3  
+10  
+1 2 3 4 5 3 6 6 2 3  
+output (for make cache=Beladys):  
+4  
+output (for make cache=LIRS):  
+3

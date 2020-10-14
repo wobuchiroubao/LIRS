@@ -6,19 +6,19 @@
 
 namespace LIRS {
 
-	#define LIR 0
-	#define R_HIR 1 // resident HIR
-	#define NR_HIR 2 // non-resident HIR
-
 	template <typename Key, typename Data>
 	class cache {
 	public:
-		cache(size_t size);
-		size_t size();
-		int entry(Key key, const Data& data);
+		explicit cache(size_t size);
+		size_t size() const;
+		bool entry(Key key, const Data& data); // 1 if hit, 0 if miss
 		void clear();
 
 	private:
+		static const int LIR = 0;
+		static const int R_HIR = 1; // resident HIR
+		static const int NR_HIR = 2; // non-resident HIR
+		
 		struct node {
 			node(Key key, int status, typename std::list<Data>::iterator cache_it);
 			Key key_;
@@ -60,19 +60,12 @@ namespace LIRS {
 
 	template <typename Key, typename Data>
 	cache<Key, Data>::cache(size_t size)
-		: hashmap_LIR_()
-		, hashmap_R_HIR_Q_()
-		, hashmap_R_HIR_S_()
-		, hashmap_NR_HIR_()
-		, HIRs_size_((size >= 100)? (size / 100) : 1)
+		: HIRs_size_((size >= 100)? (size / 100) : 1)
 		, LIRs_size_((size >= 2)? (size - HIRs_size_) : 1)
-		, S_()
-		, Q_()
-		, cache_()
 	{}
 
 	template <typename Key, typename Data>
-	size_t cache<Key, Data>::size() {
+	size_t cache<Key, Data>::size() const {
 		return HIRs_size_ + LIRs_size_;
 	}
 
@@ -88,7 +81,7 @@ namespace LIRS {
 	}
 
 	template <typename Key, typename Data>
-	int cache<Key, Data>::entry(Key key, const Data& data) {
+	bool cache<Key, Data>::entry(Key key, const Data& data) {
 		auto if_hashed = hashmap_LIR_.find(key);
 		if (if_hashed != hashmap_LIR_.end()) {
 			accessLIR(if_hashed);
@@ -102,10 +95,10 @@ namespace LIRS {
 		if_hashed = hashmap_NR_HIR_.find(key);
 		if (if_hashed != hashmap_NR_HIR_.end()) {
 			accessNonResHIR(if_hashed, data);
-			return -1;
+			return 0;
 		} else {
 			accessNew(key, data);
-			return -1;
+			return 0;
 		}
 	}
 
@@ -207,9 +200,5 @@ namespace LIRS {
 		}
 		S_.erase(elem.base(), S_.end());
 	}
-
-	#undef LIR
-	#undef R_HIR
-	#undef NR_HIR
 
 }

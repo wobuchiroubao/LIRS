@@ -1,13 +1,10 @@
-all: build_all link_all run build_graphs
+all: build_all link_all run
 
 build_all:
-	g++ -c test_LIRS.cpp tests.cpp
+	g++ -c test_cache.cpp io_handle.cpp
 
 link_all:
-	g++ test_LIRS.o tests.o -o main
+	g++ test_cache.cpp io_handle.cpp -o main
 
 run:
-	./main
-
-build_graphs:
-	gnuplot graphs.p
+	./main $(cache)
